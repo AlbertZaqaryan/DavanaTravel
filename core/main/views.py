@@ -1,19 +1,29 @@
-from django.shortcuts import render
-from .models import Fav, Logo, HomeBgInfo, About, Project, Gallery
+from django.shortcuts import render, redirect
+from .models import Fav, Logo, HomeBgInfo, About, Project, Gallery, Team, ContactInfo, ContactUs
 # Create your views here.
 
 def index(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+        ContactUs.objects.create(name=name, email=email, message=message)
+        return redirect('index')
     fav_icon = Fav.objects.first()
     home_logo = Logo.objects.first()
     home_bg_info = HomeBgInfo.objects.first()
     about = About.objects.first()
     projects = Project.objects.all()
     gallery_list = Gallery.objects.all()
+    team = Team.objects.all()
+    contact = ContactInfo.objects.first()
     return render(request, 'main/index.html', context={
         'fav_icon': fav_icon,
         'home_logo':home_logo,
         'home_bg_info':home_bg_info,
         'about':about ,
         'gallery_list':gallery_list,
-        'projects':projects
+        'projects':projects,
+        'team_list':team,
+        'contact':contact
     })

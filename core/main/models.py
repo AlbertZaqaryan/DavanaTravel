@@ -60,3 +60,40 @@ class Gallery(models.Model):
     def __str__(self):
         return self.name
     
+
+
+class Team(models.Model):
+    img = models.ImageField("Person image", upload_to='person')
+    name = models.CharField("Person name", max_length=50)
+    position = models.CharField('Person position', max_length=60)
+    fb = models.TextField('Person fb', blank=True)
+    insta = models.TextField('Person insta', blank=True)
+
+
+    def __str__(self):
+        return self.name
+    
+
+class ContactInfo(models.Model):
+
+    name = models.CharField('ContactInfo name', max_length=80)
+    desc = models.TextField('ContactInfo text')
+    address = models.TextField('ContactInfo address')
+    phone1 = models.CharField('ContactInfo phone1', max_length=30)
+    phone2 = models.CharField('ContactInfo phone2', max_length=30)
+    email = models.EmailField('ContactInfo email')
+    fb = models.TextField('Person fb', blank=True)
+    insta = models.TextField('Person insta', blank=True)
+
+    def __str__(self):
+        return 'ContactInfo'
+    
+
+class ContactUs(models.Model):
+
+    name = models.CharField('Contact name', max_length=60)
+    email = models.EmailField('Contact email')
+    message = models.TextField('COntact text')
+
+    def __str__(self):
+        return self.name
